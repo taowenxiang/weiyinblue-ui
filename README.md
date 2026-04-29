@@ -9,14 +9,14 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-111827?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-0EA5E9?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Status](https://img.shields.io/badge/Status-v0.1-1D4ED8?style=for-the-badge)](./packages/ui/package.json)
+[![Status](https://img.shields.io/badge/Status-v0.2-blue?style=for-the-badge)](./packages/ui/package.json)
 
 <p align="center">
   <strong>Built on top of shadcn/ui, with a light-first blue-cyan theme.</strong><br>
   This repository contains the core UI package, shared theme tokens, form helpers, reusable layout blocks, and a showcase app that documents and validates the system.
 </p>
 
-[Overview](#-overview) • [Features](#-features) • [Quick Start](#-quick-start) • [Usage](#-usage) • [Architecture](#-architecture)
+[Overview](#-overview) • [Features](#-features) • [Quick Start](#-quick-start) • [Validation](#-validation) • [Release Workflow](#-release-workflow) • [Architecture](#-architecture)
 
 </div>
 
@@ -80,6 +80,14 @@ Compared with a default shadcn setup, this project adds:
 - `Separator`
 - `Tabs`
 - `DropdownMenu`
+- `Tooltip`
+- `Sheet`
+- `Skeleton`
+- `Toast`
+- `Breadcrumb`
+- `Avatar`
+- `Progress`
+- `Table`
 
 ### Form
 
@@ -100,6 +108,12 @@ Compared with a default shadcn setup, this project adds:
 - `FilterBar`
 - `EmptyState`
 - `FormSection`
+- `PageHeader`
+- `MetricGrid`
+- `DataPanel`
+- `SideNav`
+- `FormFooter`
+- `FieldRow`
 
 ---
 
@@ -122,6 +136,7 @@ pnpm dev
 ```bash
 pnpm lint
 pnpm typecheck
+pnpm test
 ```
 
 ### 4. Build the workspace
@@ -129,6 +144,71 @@ pnpm typecheck
 ```bash
 pnpm build
 ```
+
+### 5. Run browser smoke tests
+
+```bash
+pnpm test:e2e
+```
+
+---
+
+## Validation
+
+The baseline validation flow for this repository is:
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm test:e2e
+```
+
+Unit tests use `Vitest + Testing Library`. Browser smoke tests use `Playwright` against the docs app in `apps/web`.
+
+---
+
+## Contributor Workflow
+
+For local development:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+For package and docs verification:
+
+```bash
+pnpm check
+```
+
+Additional project conventions are documented in:
+
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- [`docs/DECISIONS.md`](./docs/DECISIONS.md)
+- [`docs/GOVERNANCE.md`](./docs/GOVERNANCE.md)
+
+---
+
+## Release Workflow
+
+This repository now includes a `changesets` setup for versioning and release preparation.
+
+Create a release note:
+
+```bash
+pnpm changeset
+```
+
+Apply version updates:
+
+```bash
+pnpm version-packages
+```
+
+The package is still monorepo-first, but the public surface is maintained as external-consumer-ready.
 
 ---
 
@@ -229,17 +309,19 @@ Used for:
 
 ## Current Status
 
-This repository is currently at `v0.1`.
+This repository is currently at `v0.2`.
 
 It already includes:
 
 - a working theme baseline
 - a core primitive layer
 - a form abstraction layer
-- a set of reusable layout and product blocks
-- a showcase app powered by the package itself
+- a second wave of reusable product blocks
+- a multi-page docs and showcase app powered by the package itself
+- CI, unit tests, and browser smoke tests
+- a release-prep baseline with `changesets`
 
-Future work will likely focus on denser product modules, more data-heavy components, and a more formal release strategy.
+Future work will likely focus on denser product modules, richer data-display patterns, and long-term API governance.
 
 ---
 
@@ -254,6 +336,8 @@ Future work will likely focus on denser product modules, more data-heavy compone
 - `TypeScript`
 - `Turbo`
 - `pnpm`
+- `Vitest`
+- `Playwright`
 
 ---
 

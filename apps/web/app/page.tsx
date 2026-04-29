@@ -1,5 +1,5 @@
-import { ShowcasePage } from "@/components/showcase-page"
+import { OverviewPage } from "@/components/docs/overview-page"
 
 export default function Page() {
-  return <ShowcasePage />
+  return <OverviewPage />
 }

@@ -2,6 +2,17 @@
   "name": "@weiyinblue/ui",
   "version": "0.1.0",
   "type": "module",
+  "description": "Weiyinblue UI primitives, theme tokens, forms, and layout blocks.",
+  "keywords": [
+    "design-system",
+    "react",
+    "shadcn",
+    "tailwindcss",
+    "radix-ui",
+    "ui",
+    "weiyinblue"
+  ],
+  "license": "UNLICENSED",
   "files": [
     "dist",
     "src/styles/globals.css",
@@ -12,9 +23,10 @@
     "**/*.css"
   ],
   "scripts": {
-    "build": "tsup src/index.ts src/components/*.tsx src/blocks/*.tsx src/providers/*.tsx src/lib/*.ts --dts --format esm --out-dir dist --clean --external react --external react-dom --external next-themes --external radix-ui --external lucide-react --external react-hook-form --external class-variance-authority --external clsx --external tailwind-merge",
+    "build": "tsup src/index.ts \"src/components/*.tsx\" \"!src/components/*.test.tsx\" src/blocks/*.tsx src/providers/*.tsx src/lib/*.ts --dts --format esm --out-dir dist --clean --external react --external react-dom --external next-themes --external radix-ui --external lucide-react --external react-hook-form --external class-variance-authority --external clsx --external tailwind-merge",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "test": "vitest run --config vitest.config.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

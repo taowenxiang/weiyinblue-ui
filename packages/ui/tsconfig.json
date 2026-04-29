@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "types": ["vitest/globals"],
     "paths": {
       "@weiyinblue/ui/*": ["./src/*"]
     }

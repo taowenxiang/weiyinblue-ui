@@ -9,14 +9,14 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-111827?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-0EA5E9?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![状态](https://img.shields.io/badge/Status-v0.1-1D4ED8?style=for-the-badge)](./packages/ui/package.json)
+[![状态](https://img.shields.io/badge/Status-v0.2-blue?style=for-the-badge)](./packages/ui/package.json)
 
 <p align="center">
   <strong>基于 shadcn/ui，提供一套 light-first 的蓝青色 UI 主题。</strong><br>
   这个仓库包含核心 UI 包、共享主题 token、表单辅助层、可复用布局 block，以及一个同时承担文档和验证职责的展示站。
 </p>
 
-[项目概览](#-项目概览) • [能力特征](#-能力特征) • [快速开始](#-快速开始) • [使用方式](#-使用方式) • [工程结构](#-工程结构)
+[项目概览](#-项目概览) • [能力特征](#-能力特征) • [快速开始](#-快速开始) • [验证方式](#-验证方式) • [发版流程](#-发版流程) • [工程结构](#-工程结构)
 
 </div>
 
@@ -80,6 +80,14 @@
 - `Separator`
 - `Tabs`
 - `DropdownMenu`
+- `Tooltip`
+- `Sheet`
+- `Skeleton`
+- `Toast`
+- `Breadcrumb`
+- `Avatar`
+- `Progress`
+- `Table`
 
 ### Form
 
@@ -100,6 +108,12 @@
 - `FilterBar`
 - `EmptyState`
 - `FormSection`
+- `PageHeader`
+- `MetricGrid`
+- `DataPanel`
+- `SideNav`
+- `FormFooter`
+- `FieldRow`
 
 ---
 
@@ -122,6 +136,7 @@ pnpm dev
 ```bash
 pnpm lint
 pnpm typecheck
+pnpm test
 ```
 
 ### 4. 构建整个工作区
@@ -129,6 +144,71 @@ pnpm typecheck
 ```bash
 pnpm build
 ```
+
+### 5. 运行浏览器烟测
+
+```bash
+pnpm test:e2e
+```
+
+---
+
+## 验证方式
+
+当前仓库的基础验证链路是：
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm test:e2e
+```
+
+组件单测使用 `Vitest + Testing Library`，浏览器交互和截图烟测使用 `Playwright`，目标站点是 `apps/web` 文档站。
+
+---
+
+## 贡献与开发流程
+
+本地开发：
+
+```bash
+pnpm install
+pnpm dev
+```
+
+做一轮完整检查：
+
+```bash
+pnpm check
+```
+
+进一步的项目约定写在这些文件里：
+
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- [`docs/DECISIONS.md`](./docs/DECISIONS.md)
+- [`docs/GOVERNANCE.md`](./docs/GOVERNANCE.md)
+
+---
+
+## 发版流程
+
+仓库已经接入 `changesets`，用于版本和发版准备。
+
+创建一条变更记录：
+
+```bash
+pnpm changeset
+```
+
+应用版本更新：
+
+```bash
+pnpm version-packages
+```
+
+目前仍然以 monorepo 内消费为主，但公开导出面已经按外部项目可消费的方式维护。
 
 ---
 
@@ -229,17 +309,19 @@ weiyinblue/
 
 ## 当前阶段
 
-当前仓库处于 `v0.1`。
+当前仓库处于 `v0.2`。
 
 目前已经具备：
 
 - 可用的主题基线
 - 基础组件层
 - 表单抽象层
-- 一组可复用的布局和产品 block
-- 一个由包本身驱动的展示站
+- 第二波可复用产品 block
+- 一个由包本身驱动的多页面文档与展示站
+- CI、组件单测和浏览器烟测
+- 基于 `changesets` 的发版准备能力
 
-后续更可能补充的是更高信息密度的产品模块、更复杂的数据型组件，以及更正式的发布策略。
+后续更可能补充的是更高信息密度的产品模块、更丰富的数据展示模式，以及长期的 API 治理。
 
 ---
 
@@ -254,6 +336,8 @@ weiyinblue/
 - `TypeScript`
 - `Turbo`
 - `pnpm`
+- `Vitest`
+- `Playwright`
 
 ---
 

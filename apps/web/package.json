@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "test": "echo \"web app behavior is covered through Playwright e2e\"",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
