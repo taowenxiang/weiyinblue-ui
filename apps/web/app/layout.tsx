@@ -1,12 +1,14 @@
-import { Geist, Geist_Mono } from "next/font/google"
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google"
 
-import "@workspace/ui/globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@workspace/ui/lib/utils";
+import "@weiyinblue/ui/styles.css"
+import { ThemeProvider, cn } from "@weiyinblue/ui"
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'})
+const sans = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
 
-const fontMono = Geist_Mono({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
@@ -18,9 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="zh-CN"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
+      className={cn("antialiased", sans.variable, mono.variable)}
     >
       <body>
         <ThemeProvider>{children}</ThemeProvider>

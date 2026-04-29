@@ -1,9 +1,18 @@
 {
-  "name": "@workspace/ui",
-  "version": "0.0.0",
+  "name": "@weiyinblue/ui",
+  "version": "0.1.0",
   "type": "module",
-  "private": true,
+  "files": [
+    "dist",
+    "src/styles/globals.css",
+    "postcss.config.mjs",
+    "components.json"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
+    "build": "tsup src/index.ts src/components/*.tsx src/blocks/*.tsx src/providers/*.tsx src/lib/*.ts --dts --format esm --out-dir dist --clean --external react --external react-dom --external next-themes --external radix-ui --external lucide-react --external react-hook-form --external class-variance-authority --external clsx --external tailwind-merge",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit"
@@ -12,14 +21,17 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.11.0",
-    "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "react-hook-form": "^7.66.1",
     "shadcn": "^4.5.0",
     "tailwind-merge": "^3.5.0",
     "tw-animate-css": "^1.4.0",
     "zod": "^3.25.76"
+  },
+  "peerDependencies": {
+    "next-themes": "^0.4.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
@@ -30,14 +42,36 @@
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "eslint": "^9.39.2",
+    "next-themes": "^0.4.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "tailwindcss": "^4.1.18",
+    "tsup": "^8.5.0",
     "typescript": "^5.9.3"
   },
   "exports": {
-    "./globals.css": "./src/styles/globals.css",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./src/styles/globals.css",
     "./postcss.config": "./postcss.config.mjs",
-    "./lib/*": "./src/lib/*.ts",
-    "./components/*": "./src/components/*.tsx",
+    "./lib/*": {
+      "types": "./dist/lib/*.d.ts",
+      "default": "./dist/lib/*.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "default": "./dist/components/*.js"
+    },
+    "./providers/*": {
+      "types": "./dist/providers/*.d.ts",
+      "default": "./dist/providers/*.js"
+    },
+    "./blocks/*": {
+      "types": "./dist/blocks/*.d.ts",
+      "default": "./dist/blocks/*.js"
+    },
     "./hooks/*": "./src/hooks/*.ts"
   }
 }
