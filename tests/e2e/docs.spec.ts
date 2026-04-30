@@ -65,12 +65,17 @@ test("docs visual snapshots stay stable on key surfaces", async ({ page }) => {
     "/examples/admin",
   ]) {
     await gotoDocs(page, path)
+    const snapshotName = path === "/theme" ? "theme" : path.split("/").slice(-1)[0]
+
     await expect(page).toHaveScreenshot(
-      `${path === "/theme" ? "theme" : path.split("/").slice(-1)[0]}.png`,
+      `${snapshotName}.png`,
       {
         animations: "disabled",
         fullPage: true,
-        maxDiffPixelRatio: 0.02,
+        // Text rasterization still differs slightly between macOS and Linux
+        // even with local fonts. Keep tighter thresholds on the example pages
+        // and a slightly wider one on the token-heavy theme reference page.
+        maxDiffPixelRatio: path === "/theme" ? 0.04 : 0.02,
       }
     )
   }
