@@ -1,6 +1,6 @@
 {
   "name": "@weiyinblue/ui",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "description": "Weiyinblue UI primitives, theme tokens, forms, and layout blocks.",
   "keywords": [
@@ -12,7 +12,16 @@
     "ui",
     "weiyinblue"
   ],
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taowenxiang/weiyinblue-ui.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/taowenxiang/weiyinblue-ui#readme",
+  "bugs": {
+    "url": "https://github.com/taowenxiang/weiyinblue-ui/issues"
+  },
   "files": [
     "dist",
     "src/styles/globals.css",
@@ -83,7 +92,6 @@
     "./blocks/*": {
       "types": "./dist/blocks/*.d.ts",
       "default": "./dist/blocks/*.js"
-    },
-    "./hooks/*": "./src/hooks/*.ts"
+    }
   }
 }

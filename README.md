@@ -9,14 +9,14 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-111827?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-0EA5E9?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Status](https://img.shields.io/badge/Status-v0.2-blue?style=for-the-badge)](./packages/ui/package.json)
+[![Status](https://img.shields.io/badge/Status-v1.0-blue?style=for-the-badge)](./packages/ui/package.json)
 
 <p align="center">
   <strong>Built on top of shadcn/ui, with a light-first blue-cyan theme.</strong><br>
-  This repository contains the core UI package, shared theme tokens, form helpers, reusable layout blocks, and a showcase app that documents and validates the system.
+  This repository contains the stable <code>@weiyinblue/ui</code> package, shared theme tokens, form helpers, reusable layout blocks, and a docs app that validates the system contract.
 </p>
 
-[Overview](#-overview) • [Features](#-features) • [Quick Start](#-quick-start) • [Validation](#-validation) • [Release Workflow](#-release-workflow) • [Architecture](#-architecture)
+[Overview](#-overview) • [Features](#-features) • [Stability](#-stability-at-v10) • [Quick Start](#-quick-start) • [Validation](#-validation) • [Architecture](#-architecture)
 
 </div>
 
@@ -52,7 +52,45 @@ Compared with a default shadcn setup, this project adds:
 | `Form Layer` | Includes `Form`, `FormField`, `FormItem`, `FormControl`, `FormMessage`, and related helpers built around `react-hook-form`. |
 | `Reusable Blocks` | Includes `Navbar`, `DashboardBlock`, `StatCard`, `SectionBlock`, `FilterBar`, `EmptyState`, and `FormSection`. |
 | `Package Exports` | Supports root imports and subpath imports for components, blocks, providers, and styles. |
-| `Showcase App` | `apps/web` acts as both documentation and an integration target for the package. |
+| `Docs App` | `apps/web` acts as both documentation and an integration target for the package. |
+
+---
+
+## Stability at v1.0
+
+`@weiyinblue/ui` is now treated as a stable `v1.0` package surface for GitHub-ready consumption.
+
+What is frozen:
+
+- the documented theme entry points: `ThemeProvider`, `ThemeToggle`, `styles.css`
+- the documented primitive, form, and block exports
+- the current product targets: portfolio, campus/settings, and admin/dashboard surfaces
+- the validation gate: `lint`, `typecheck`, `test`, `build`, `test:e2e`
+
+What may still evolve additively:
+
+- narrow new blocks proven across repeated real usage
+- compatibility fixes for React, Next.js, Tailwind, and PostCSS
+- accessibility improvements and regression fixes
+
+What consumers should not couple to:
+
+- `data-slot` attribute values
+- exact DOM nesting
+- exact spacing, shadow, and gradient numbers behind semantic tokens
+- docs-app-only composition helpers
+
+Advanced compatibility exports such as `cn`, variant helpers, and selected type helpers remain public, but they are not the primary adoption API.
+
+---
+
+## Compatibility
+
+- `React 19`
+- `Next.js 16` for the docs app
+- `Tailwind CSS 4`
+- `PostCSS` consumers should import `@weiyinblue/ui/styles.css`
+- `@weiyinblue/ui/postcss.config` is available as a bootstrap aid, not as a core UI API
 
 ---
 
@@ -153,6 +191,19 @@ pnpm test:e2e
 
 ---
 
+## Using This Repository
+
+The repository is split into four practical surfaces:
+
+- `packages/ui`: the stable `@weiyinblue/ui` package
+- `apps/web`: the canonical docs and showcase app
+- `templates/*`: copy-ready starter pages for the three target product types
+- `apps/consumer-smoke`: a separate consumer used to validate the public package surface
+
+This repo is public-ready on GitHub. npm publishing is intentionally deferred.
+
+---
+
 ## Validation
 
 The baseline validation flow for this repository is:
@@ -187,8 +238,11 @@ pnpm check
 Additional project conventions are documented in:
 
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- [`docs/API_SURFACE.md`](./docs/API_SURFACE.md)
 - [`docs/DECISIONS.md`](./docs/DECISIONS.md)
 - [`docs/GOVERNANCE.md`](./docs/GOVERNANCE.md)
+
+External-consumer verification lives in [`apps/consumer-smoke`](./apps/consumer-smoke), which consumes the package through the public workspace dependency instead of the docs app.
 
 ---
 
@@ -209,6 +263,14 @@ pnpm version-packages
 ```
 
 The package is still monorepo-first, but the public surface is maintained as external-consumer-ready.
+
+For `v1.0`, release discipline means:
+
+- patch releases for bugs, accessibility, regressions, and compatibility
+- minor releases for additive, repeated-use exports
+- major releases only for deliberate API cleanup or contract changes
+
+The current GitHub release draft lives in [`docs/releases/v1.0.0.md`](./docs/releases/v1.0.0.md).
 
 ---
 
@@ -271,6 +333,12 @@ import { Navbar, StatCard, FormSection } from "@weiyinblue/ui"
 @weiyinblue/ui/blocks/*
 ```
 
+### Extend safely
+
+- Prefer composition through documented exports.
+- Use semantic tokens before adding one-off CSS.
+- Do not target `data-slot` selectors from product code unless you are intentionally opting into internal coupling.
+
 ---
 
 ## Architecture
@@ -278,11 +346,13 @@ import { Navbar, StatCard, FormSection } from "@weiyinblue/ui"
 ```text
 weiyinblue/
 ├─ apps/
-│  └─ web/                  # showcase and docs app
+│  ├─ consumer-smoke/       # public-surface verification consumer
+│  └─ web/                  # docs and showcase app
 ├─ packages/
 │  ├─ ui/                   # @weiyinblue/ui
 │  ├─ eslint-config/
 │  └─ typescript-config/
+├─ templates/               # copy-ready starter pages
 ├─ turbo.json
 └─ pnpm-workspace.yaml
 ```
@@ -305,23 +375,29 @@ Used for:
 - visual preview
 - validating real package consumption
 
+### `apps/consumer-smoke`
+
+Used for:
+
+- validating the public package surface from a separate consumer
+- catching export and setup regressions outside the docs app
+
 ---
 
 ## Current Status
 
-This repository is currently at `v0.2`.
+This repository is currently at `v1.0`.
 
 It already includes:
 
-- a working theme baseline
-- a core primitive layer
-- a form abstraction layer
-- a second wave of reusable product blocks
-- a multi-page docs and showcase app powered by the package itself
-- CI, unit tests, and browser smoke tests
-- a release-prep baseline with `changesets`
+- a frozen documented package surface for theme, primitives, forms, and blocks
+- a multi-page docs app powered by the package itself
+- starter templates for the three target product types
+- a separate consumer-smoke validation workspace
+- CI, unit tests, visual/e2e protection, and Changesets-based release prep
+- governance and API-surface docs for long-term maintenance
 
-Future work will likely focus on denser product modules, richer data-display patterns, and long-term API governance.
+Post-`v1.0`, future work should be additive and narrow rather than exploratory.
 
 ---
 
@@ -344,5 +420,5 @@ Future work will likely focus on denser product modules, richer data-display pat
 ## Notes
 
 - `@weiyinblue/ui` is currently consumed as a workspace package inside this monorepo.
-- The package already supports `dist` builds and subpath exports.
-- Public npm publishing can be added later if needed.
+- The package supports `dist` builds and subpath exports.
+- Public npm publishing can be added later if needed, but it is not required for the `v1.0` GitHub-ready contract.

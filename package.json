@@ -2,6 +2,16 @@
   "name": "weiyinblue",
   "version": "0.0.1",
   "private": true,
+  "description": "Weiyinblue monorepo for the @weiyinblue/ui design system, docs app, templates, and validation workspace.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taowenxiang/weiyinblue-ui.git"
+  },
+  "homepage": "https://github.com/taowenxiang/weiyinblue-ui#readme",
+  "bugs": {
+    "url": "https://github.com/taowenxiang/weiyinblue-ui/issues"
+  },
   "scripts": {
     "build": "turbo build",
     "changeset": "changeset",

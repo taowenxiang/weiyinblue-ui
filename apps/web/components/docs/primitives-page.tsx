@@ -10,7 +10,8 @@ import {
 } from "@weiyinblue/ui"
 
 import { DocsPrimitivesDemo } from "./docs-primitives-demo"
-import { primitiveDocs } from "./docs-data"
+import { primitiveDocs, primitiveReference } from "./docs-data"
+import { DocsReferenceGrid } from "./docs-reference-grid"
 import { DocsShell } from "./docs-shell"
 
 function PrimitivesPage() {
@@ -50,6 +51,14 @@ function PrimitivesPage() {
               </Card>
             ))}
           </div>
+        </SectionBlock>
+
+        <SectionBlock
+          action={<Badge variant="subtle">Contract</Badge>}
+          description="Every public primitive below includes intended usage, composition guidance, and explicit non-goals so the package can stay stable as it grows."
+          title="Primitive reference"
+        >
+          <DocsReferenceGrid items={primitiveReference} />
         </SectionBlock>
       </div>
     </DocsShell>

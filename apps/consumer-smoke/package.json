@@ -1,32 +1,25 @@
 {
-  "name": "web",
+  "name": "consumer-smoke",
   "version": "0.0.2",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "test": "echo \"web app behavior is covered through Playwright e2e\"",
-    "typecheck": "tsc --noEmit"
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "echo \"consumer smoke is validated through typecheck and build\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@weiyinblue/ui": "workspace:*",
-    "lucide-react": "^1.11.0",
-    "next": "16.1.6",
     "next-themes": "^0.4.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.66.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.18",
-    "@types/node": "^25.1.0",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
-    "@workspace/eslint-config": "workspace:^",
+    "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "eslint": "^9.39.2",
     "typescript": "^5.9.3"

@@ -17,6 +17,9 @@ import {
   UserRoundCogIcon,
 } from "lucide-react"
 
+import { patternMappings } from "../examples/example-data"
+import { blockReference } from "./docs-data"
+import { DocsReferenceGrid } from "./docs-reference-grid"
 import { DocsShell } from "./docs-shell"
 
 function BlocksPage() {
@@ -42,11 +45,11 @@ function BlocksPage() {
               value="22 exports"
             />
             <StatCard
-              delta="v0.2"
-              hint="Stability before full expansion"
+              delta="v1.0"
+              hint="Stable contract, maintenance mode"
               icon={<Layers3Icon className="size-5" />}
               label="Current phase"
-              value="Infrastructure"
+              value="Frozen surface"
             />
             <StatCard
               delta="+6"
@@ -101,8 +104,8 @@ function BlocksPage() {
         </SectionBlock>
 
         <SectionBlock
-          action={<Badge variant="subtle">Additive API</Badge>}
-          description="Current product-oriented additions focus on page headers, panels, metrics, side navigation, and form composition."
+          action={<Badge variant="subtle">Pattern rules</Badge>}
+          description="The block layer is now frozen around page headers, panels, metrics, side navigation, and form composition."
           title="Current block additions"
         >
           <div className="grid gap-4 md:grid-cols-2">
@@ -119,6 +122,28 @@ function BlocksPage() {
               Additional workflow-specific blocks should only be added after repeated usage across real projects.
             </BlockSummary>
           </div>
+        </SectionBlock>
+
+        <SectionBlock
+          action={<Badge variant="subtle">Target surface mapping</Badge>}
+          description="These mappings are the current default interpretation of the block layer across portfolio, campus, and admin pages."
+          title="Block pattern to surface mapping"
+        >
+          <div className="grid gap-4 md:grid-cols-2">
+            {patternMappings.map((item) => (
+              <BlockSummary key={item.pattern} title={item.pattern}>
+                {item.targets}
+              </BlockSummary>
+            ))}
+          </div>
+        </SectionBlock>
+
+        <SectionBlock
+          action={<Badge variant="subtle">Contract</Badge>}
+          description="Blocks are intentionally opinionated. They should remove repeat layout work without hiding the underlying primitives or creating too many near-duplicate shells."
+          title="Block reference"
+        >
+          <DocsReferenceGrid items={blockReference} />
         </SectionBlock>
       </div>
     </DocsShell>

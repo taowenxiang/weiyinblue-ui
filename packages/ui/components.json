@@ -13,7 +13,6 @@
   "aliases": {
     "components": "@weiyinblue/ui/components",
     "utils": "@weiyinblue/ui/lib/utils",
-    "hooks": "@weiyinblue/ui/hooks",
     "lib": "@weiyinblue/ui/lib",
     "ui": "@weiyinblue/ui/components"
   },

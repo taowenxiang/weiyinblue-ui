@@ -16,3 +16,5 @@
 - [ ] Public docs/examples updated when needed
 - [ ] Accessibility implications reviewed
 - [ ] New exports are additive or clearly justified
+- [ ] API surface tier updated when needed
+- [ ] Change matches the `v1.0` maintenance policy

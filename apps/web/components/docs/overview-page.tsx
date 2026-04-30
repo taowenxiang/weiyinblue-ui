@@ -12,6 +12,7 @@ import {
 } from "@weiyinblue/ui"
 
 import { DocsShell } from "./docs-shell"
+import { apiTiers, maintenanceRules, repoSurfaces } from "./docs-data"
 
 function OverviewPage() {
   return (
@@ -31,13 +32,13 @@ function OverviewPage() {
               </Button>
             </>
           }
-          breadcrumb={<Badge variant="outline">v0.2 Implementation Baseline</Badge>}
-          description="Weiyinblue is a monorepo-first UI system built on top of shadcn/ui. The current focus is to make the package stable, testable, externally consumable, and easier to extend without visual drift."
+          breadcrumb={<Badge variant="outline">v1.0 Stable Contract</Badge>}
+          description="Weiyinblue is a monorepo-first UI system built on top of shadcn/ui. The current package surface is frozen for GitHub-ready reuse and documented so future work can stay additive."
           title="Overview"
         />
 
         <SectionBlock
-          description="The package is already beyond the template stage and now behaves like a real design-system workspace."
+          description="The repo now behaves like a stable design-system workspace rather than an exploratory component sandbox."
           title="Current system status"
         >
           <div className="grid gap-4 lg:grid-cols-3">
@@ -45,7 +46,7 @@ function OverviewPage() {
               <CardHeader>
                 <CardTitle>Package foundation</CardTitle>
                 <CardDescription>
-                  Root exports, subpath exports, styles entry, and `dist` builds are already in place.
+                  Root exports, subpath exports, styles entry, and `dist` builds are part of the frozen contract.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -59,9 +60,9 @@ function OverviewPage() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Stability focus</CardTitle>
+                <CardTitle>Maintenance focus</CardTitle>
                 <CardDescription>
-                  The next stage prioritizes tests, CI, docs structure, and controlled API growth.
+                  Future work should stay narrow: fixes, compatibility, accessibility, and repeated-use additions only.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -122,25 +123,52 @@ function OverviewPage() {
         </SectionBlock>
 
         <SectionBlock
-          description="The repo is now optimized around maintainability, not just one-time visual assembly."
-          title="What changed in this roadmap slice"
+          description="These are the repo surfaces you should treat as the official ways to use or validate Weiyinblue."
+          title="Using this repository"
+        >
+          <div className="grid gap-4 md:grid-cols-2">
+            {repoSurfaces.map((item) => (
+              <InfoTile
+                key={item.title}
+                description={item.description}
+                icon={<Layers3Icon className="size-5" />}
+                title={item.title}
+              />
+            ))}
+          </div>
+        </SectionBlock>
+
+        <SectionBlock
+          action={<Badge variant="subtle">Freeze direction</Badge>}
+          description="The package separates stable day-to-day consumer APIs from lower-level compatibility exports and implementation details."
+          title="Stability contract"
         >
           <div className="grid gap-4 md:grid-cols-3">
-            <InfoTile
-              description="CI, changesets, contributor docs, and governance notes reduce future ambiguity."
-              icon={<ShieldCheckIcon className="size-5" />}
-              title="Repo infrastructure"
-            />
-            <InfoTile
-              description="The next component wave adds sheet, toast, tooltip, skeleton, avatar, progress, table, and breadcrumb."
-              icon={<Layers3Icon className="size-5" />}
-              title="Component depth"
-            />
-            <InfoTile
-              description="Critical interaction tests start freezing behavior before the surface area grows further."
-              icon={<CheckCircle2Icon className="size-5" />}
-              title="Regression safety"
-            />
+            {apiTiers.map((tier) => (
+              <InfoTile
+                key={tier.title}
+                description={`${tier.description} Examples: ${tier.examples}.`}
+                icon={<ShieldCheckIcon className="size-5" />}
+                title={tier.title}
+              />
+            ))}
+          </div>
+        </SectionBlock>
+
+        <SectionBlock
+          action={<Badge variant="subtle">Maintenance mode</Badge>}
+          description="After `v1.0`, the package should change for narrow, durable reasons instead of exploratory expansion."
+          title="Change policy"
+        >
+          <div className="grid gap-4 md:grid-cols-3">
+            {maintenanceRules.map((item) => (
+              <InfoTile
+                key={item.title}
+                description={item.text}
+                icon={<CheckCircle2Icon className="size-5" />}
+                title={item.title}
+              />
+            ))}
           </div>
         </SectionBlock>
       </div>

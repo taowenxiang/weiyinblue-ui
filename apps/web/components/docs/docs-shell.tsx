@@ -15,7 +15,7 @@ import { docsNav } from "./docs-data"
 
 function DocsShell({
   children,
-  progress = 62,
+  progress = 100,
 }: {
   children: React.ReactNode
   progress?: number
@@ -55,11 +55,11 @@ function DocsShell({
                 <div className="grid gap-3 rounded-2xl border border-white/40 bg-background/45 p-3 dark:border-white/8 dark:bg-background/20">
                   <div className="flex items-center gap-2 text-sm font-medium text-[var(--text-strong)]">
                     <SparklesIcon className="size-4 text-primary" />
-                    v0.2 roadmap
+                    v1.0 stable contract
                   </div>
                   <Progress value={progress} />
                   <p className="text-sm leading-6 text-muted-foreground">
-                    Docs, tests, CI, and the second component wave are being stabilized together.
+                    Public APIs, docs, templates, and validation are frozen for GitHub-ready reuse.
                   </p>
                 </div>
               }
@@ -80,7 +80,7 @@ function DocsShell({
               <div className="grid gap-2 text-sm leading-6 text-muted-foreground">
                 <p>All code examples on this site use public exports only.</p>
                 <Badge className="w-fit" variant="outline">
-                  Monorepo-first, external-ready
+                  Monorepo-first, GitHub-ready
                 </Badge>
               </div>
             </div>
