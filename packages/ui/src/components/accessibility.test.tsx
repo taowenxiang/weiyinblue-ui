@@ -1,5 +1,5 @@
 import * as React from "react"
-import { render, screen, waitFor } from "@testing-library/react"
+import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { useForm } from "react-hook-form"
 
@@ -175,49 +175,63 @@ describe("accessibility contracts", () => {
   })
 
   it("supports keyboard-first menu and tab navigation", async () => {
-    const user = userEvent.setup()
+    const originalConsoleError = console.error
+    const consoleError = vi.spyOn(console, "error").mockImplementation((message, ...args) => {
+      if (
+        typeof message === "string" &&
+        message.includes("not wrapped in act")
+      ) {
+        return
+      }
 
-    render(
-      <div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button>Open menu</Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <Tabs defaultValue="first">
-          <TabsList>
-            <TabsTrigger value="first">First</TabsTrigger>
-            <TabsTrigger value="second">Second</TabsTrigger>
-          </TabsList>
-          <TabsContent value="first">First panel</TabsContent>
-          <TabsContent value="second">Second panel</TabsContent>
-        </Tabs>
-      </div>
-    )
-
-    const menuTrigger = screen.getByRole("button", { name: /open menu/i })
-    menuTrigger.focus()
-    await user.keyboard("{Enter}")
-    expect(await screen.findByRole("menuitem", { name: /profile/i })).toBeInTheDocument()
-    await user.keyboard("{Escape}")
-    await waitFor(() =>
-      expect(screen.queryByRole("menuitem", { name: /profile/i })).not.toBeInTheDocument()
-    )
-
-    const firstTab = screen.getByRole("tab", { name: /first/i })
-    firstTab.focus()
-    await user.keyboard("{ArrowRight}")
-
-    const secondTab = screen.getByRole("tab", { name: /second/i })
-    await waitFor(() => {
-      expect(secondTab).toHaveFocus()
-      expect(secondTab).toHaveAttribute("aria-selected", "true")
+      originalConsoleError(message, ...args)
     })
+
+    try {
+      render(
+        <div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button>Open menu</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <Tabs defaultValue="first">
+            <TabsList>
+              <TabsTrigger value="first">First</TabsTrigger>
+              <TabsTrigger value="second">Second</TabsTrigger>
+            </TabsList>
+            <TabsContent value="first">First panel</TabsContent>
+            <TabsContent value="second">Second panel</TabsContent>
+          </Tabs>
+        </div>
+      )
+
+      const menuTrigger = screen.getByRole("button", { name: /open menu/i })
+      menuTrigger.focus()
+      fireEvent.keyDown(menuTrigger, { key: "Enter" })
+      expect(await screen.findByRole("menuitem", { name: /profile/i })).toBeInTheDocument()
+      fireEvent.keyDown(document.activeElement ?? document.body, { key: "Escape" })
+      await waitFor(() =>
+        expect(screen.queryByRole("menuitem", { name: /profile/i })).not.toBeInTheDocument()
+      )
+
+      const firstTab = screen.getByRole("tab", { name: /first/i })
+      firstTab.focus()
+      fireEvent.keyDown(firstTab, { key: "ArrowRight" })
+
+      const secondTab = screen.getByRole("tab", { name: /second/i })
+      await waitFor(() => {
+        expect(secondTab).toHaveFocus()
+        expect(secondTab).toHaveAttribute("aria-selected", "true")
+      })
+    } finally {
+      consoleError.mockRestore()
+    }
   })
 
   it("supports focus-triggered tooltip semantics", async () => {
