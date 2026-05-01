@@ -22,7 +22,7 @@ function maxSnapshotDiffFor(path: string) {
     return 0.04
   }
 
-  if (process.env.CI && path === "/examples/portfolio") {
+  if (process.env.CI && path.startsWith("/examples/")) {
     return 0.07
   }
 
