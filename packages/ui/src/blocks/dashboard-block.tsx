@@ -91,12 +91,14 @@ function StatCard({
 }) {
   return (
     <Card className={cn("gap-4", className)} tone="primary">
-      <CardHeader className="grid grid-cols-[1fr_auto] items-start gap-3">
-        <div className="grid gap-2">
+      <CardHeader className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
+        <div className="grid min-w-0 gap-2">
           <CardDescription className="text-xs tracking-[0.16em] uppercase">
             {label}
           </CardDescription>
-          <CardTitle className="text-3xl">{value}</CardTitle>
+          <CardTitle className="min-w-0 text-3xl leading-tight text-balance">
+            {value}
+          </CardTitle>
         </div>
         {icon ? (
           <div className="flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
